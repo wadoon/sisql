@@ -1,0 +1,26 @@
+-
+  name: up_art_discount
+  desc: Setzt bei allen Artikel ein Rabatt von x €
+  sql: ---|
+    UPDATE 
+        products 
+    SET 
+        products_price = products_price /100 * ( 100 - $discount  ))"
+  tags: Produkte,Rabatt
+  params:  
+      -
+        name: discount
+        type: number
+        desc: Rabatt in Prozent
+
+-
+  name: test_evt
+  desc: shows alls users
+  sql:  SELECT * FROM USERS WHERE USR_ID = $id
+  tags: Produkte,Rabatt
+  params:  
+      -
+        name: id
+        type: number
+        desc: id of the user 
+      
