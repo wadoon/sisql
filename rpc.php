@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "mysql";
-$name = "evt";
+$name = "DB20581";
 
 
 function backup_tables($host,$user,$pass,$name,$tables = '*')
@@ -72,21 +72,38 @@ function backup()
 function execsql()
 {
     global $user,$pass, $host, $name;
-    $db = mysql_connect($host, $user, $pass) or die("error: cannot connect to $host");
-    mysql_select_db($name, $db) or die("error: cannot select database");
+    $db = mysql_connect($host, $user, $pass) or die("<b>error:</b> cannot connect to $host");
+    mysql_select_db($name, $db) or die("<b>error:</b> cannot select database");
 
-    $sql = $_REQUEST['sql'];
-    
-    $result = mysql_query($sql, $db);
-    if($result === TRUE)
+    $sql = stripslashes($_REQUEST['sql']);
+
+    if(strrpos($sql,";"))
     {
-        echo mysql_info(); 
-        return null;
+        $queries = explode(";", $sql);
+        foreach($queries as $query)
+        {
+            echo "<p><em>$query</em><br />";
+            execquery($query,$db);
+            echo "</p>";
+        }
+    }
+    else
+    {
+        execquery($sql,$db);
+    }
+
+}
+
+function execquery(&$sql, &$db)
+{
+    $result = mysql_query($sql, $db);
+    if($result == true)
+    {
+        echo '<div class="success">'.mysql_info().'</div>';
     }
     elseif($result == FALSE)
     {
-        echo "Error in Sql-Statement:<br>".mysql_error();
-        return null;
+        echo "<div class='error'>Error in Sql-Statement:".mysql_error()."</div>";
     }
     else
     {

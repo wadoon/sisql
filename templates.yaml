@@ -2,10 +2,10 @@
   name: up_art_discount
   desc: Setzt bei allen Artikel ein Rabatt von x €
   sql: ---|
-    UPDATE 
-        products 
-    SET 
-        products_price = products_price /100 * ( 100 - $discount  ))"
+    TRUNCATE TABLE `specials`;
+    INSERT INTO specials (products_id, specials_new_products_price, specials_last_modified, status, customers_group_id)
+    SELECT products_id, products_price * (100 - $discount ) /100, CURDATE(), 1, 0
+    FROM products
   tags: Produkte,Rabatt
   params:  
       -
@@ -14,13 +14,34 @@
         desc: Rabatt in Prozent
 
 -
-  name: test_evt
-  desc: shows alls users
-  sql:  SELECT * FROM USERS WHERE USR_ID = $id
-  tags: Produkte,Rabatt
+  name: set_xsell_between_products
+  desc: Erstelle XSELL zwischen Produkte
+  sql:  ---|
+    INSERT INTO products_xsell (products_id, xsell_id) 
+    SELECT p.products_id, q.products_id 
+    FROM products_description p,  products_description q 
+    WHERE p.products_name LIKE '%$name%'  AND q.products_name LIKE '%$name%'
+  tags: Produkte,XSELL
   params:  
       -
-        name: id
-        type: number
-        desc: id of the user 
-      
+        name: name
+        type: text
+        desc: Suchtext im Produkttitle
+
+-
+  name: fix_paypal
+  desc: Repariert PayPal-Abrechung nach einer Adminsitzung 
+  sql:  ---|
+    UPDATE `configuration` SET `configuration_value` =
+    'ot_subtotal.php;ot_shipping.php;ot_cod_fee.php;ot_paypal_fee.php;ot_tax.php;ot_coupon.php;ot_total.php'
+    WHERE `configuration_id` = 68 ;
+  tags: Fix 
+  params:  
+
+-
+  name: sel_products_under_1_EUR 
+  desc: Zeige alle Produkte unter einem Euro
+  sql:  ---|
+    SELECT products_model, products_price  FROM products WHERE products_price <= 1.0
+  tags: Fix 
+  params:  

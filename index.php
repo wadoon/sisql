@@ -57,6 +57,9 @@ foreach($sqltemplates as $t)
 
 <button id="exec">Execute</button>
 <h2>Durchführung</h2>
+<div id="loading">
+    <img src="loading.gif"  width="150" />
+</div>
 <div id="exec"></div>
 
 <!-- <pre><? print_r($sqltemplates); ?></pre> -->

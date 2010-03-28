@@ -1,4 +1,11 @@
-
+/******************************************************************************
+ * sisql - Stylesheet for SqlSimple
+ *
+ * Author  : Alexander Weigl <alexweigl@gmail.com>
+ * Date    : 2010-03-18
+ * License : cc-by-nc-sa 3.0
+ *
+ *****************************************************************************/
 body {
     width:850px;    
     margin:auto;
@@ -6,6 +13,12 @@ body {
     margin-top:5em;
 }
 
+img { border:0;}
+
+div#loading {
+    display:none;
+    text-align:center;
+}
 div#content {
    border: 1px navy solid;
    background:white;   
@@ -39,7 +52,7 @@ div.description {
 
 
 div#sqlpreview {
-    border: 1px #222 dotted;
+    /*border: 1px #222 dotted;*/
     background: #eee;
     font-family:monospace;
     font-size:small;
@@ -65,8 +78,22 @@ div#exec table td {
     border-collapse: collapse;
 }
 
+.val-number {
+    text-indent:20px;
+    background: no-repeat url(no.png);
+}
+
+.val-text  { 
+    text-indent:20px;
+    background: no-repeat url(text.png);
+}
+
 button {
     float:right;
+}
+
+input[type=text] {
+    border: 1px #222 solid;
 }
 
 h1 {
@@ -84,12 +111,15 @@ select {
     width:100%;
 }
 
-
-
 .notvalid {
-    background:red;
+    border: 1px solid red !important;
 }
 
 .valid {
-    background:green;
+    border:green 1px solid !important;
+}
+
+select option[selected] {
+    background: #222;
+    color:white;
 }
