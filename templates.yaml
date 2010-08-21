@@ -37,11 +37,17 @@
     WHERE `configuration_id` = 68 ;
   tags: Fix 
   params:  
-
 -
   name: sel_products_under_1_EUR 
   desc: Zeige alle Produkte unter einem Euro
   sql:  ---|
     SELECT products_model, products_price  FROM products WHERE products_price <= 1.0
   tags: Fix 
+  params:  
+-
+  name: abc
+  desc: test
+  sql:  ---|
+    select * from exemplar; 
+  tags: Test 
   params:  

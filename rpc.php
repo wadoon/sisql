@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "mysql";
-$name = "DB20581";
+$name = "gzf-shop";
 
 
 function backup_tables($host,$user,$pass,$name,$tables = '*')
@@ -97,11 +97,11 @@ function execsql()
 function execquery(&$sql, &$db)
 {
     $result = mysql_query($sql, $db);
-    if($result == true)
+    if($result === true)
     {
         echo '<div class="success">'.mysql_info().'</div>';
     }
-    elseif($result == FALSE)
+    elseif(!$result)
     {
         echo "<div class='error'>Error in Sql-Statement:".mysql_error()."</div>";
     }
@@ -109,13 +109,13 @@ function execquery(&$sql, &$db)
     {
         $ncols = mysql_num_fields($result);
         
-        echo "<table><tr>"; 
+        echo "<table class='dt' ><thead><tr>"; 
         for($i = 0; $i < $ncols; $i++) 
         { 
             $finfo = mysql_fetch_field($result, $i);
             echo "<th>",$finfo->name,"</th>";
         }
-        echo "</tr>";
+        echo "</tr></thead><tbody>";
 
         while($row = mysql_fetch_row($result))
         {
@@ -124,7 +124,7 @@ function execquery(&$sql, &$db)
                 echo "<td>$field</td>";
             echo "</tr>";
         }        
-        echo "</table>";
+        echo "</tbody></table>";
     }
 }
 $obj = call_user_func($_REQUEST['fn']);

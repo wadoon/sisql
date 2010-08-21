@@ -118,7 +118,17 @@ function executeSql()
     $('div#loading').show();
     $('div#exec').empty();
     $('div#exec').load('rpc.php', {fn:'execsql',sql:sql}, function() 
-        { $('div#loading').hide(); }
+        { 
+            $('div#loading').hide(); 
+            alert(TableToolsInit.sSwfPath); 
+            TableToolsInit.sSwfPath = "media/swf/ZeroClipboard.swf";
+            $('table.dt').dataTable(
+                {
+                    "sDom": 'T<"clear"><"fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lfr>'
+                        +'t'+'<"fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>' }
+        
+            );
+        }
     );
 }
 

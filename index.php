@@ -5,8 +5,12 @@
 <head>
     <meta http-equiv="content-type" content="text/xml; charset=utf-8"0>
     <title>Sql-Simple</title>
-    <script language="javascript" src="jquery-1.4.2.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script language="javascript" src="media/js/jquery.js"></script>
+    <script language="javascript" src="media/js/jquery.dataTables.js"></script>
+    <script language="javascript" src="media/js/TableTools.min.js"></script>
+    <script language="javascript" src="media/ZeroClipboard/ZeroClipboard.js"></script>
+    <link rel="stylesheet" type="text/css" href="media/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="media/css/TableTools.css"/>
 </head>
 <body>
 <?php 
@@ -58,7 +62,7 @@ foreach($sqltemplates as $t)
 <button id="exec">Execute</button>
 <h2>Durchführung</h2>
 <div id="loading">
-    <img src="loading.gif"  width="150" />
+    <img src="media/images/loading.gif"  width="150" />
 </div>
 <div id="exec"></div>
 
@@ -67,7 +71,7 @@ foreach($sqltemplates as $t)
 <script language="javascript">
         var templates=<?=json_encode($sqltemplates);?>;
     </script>
-    <script language="javascript" src="function.js"></script>
+    <script language="javascript" src="media/js/function.js"></script>
 </div>
 </body>
 </html>
