@@ -1,9 +1,8 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "mysql";
-$name = "gzf-shop";
-
+define('SERVER', '');
+define('USERNAME', '');
+define('PASSWORD', '');
+define('DATABASE', '');
 
 function backup_tables($host,$user,$pass,$name,$tables = '*')
 {
@@ -64,16 +63,13 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
 
 function backup()
 {
-    global $user,$pass, $host, $name;
-    backup_tables($host,$user,$pass,$name);
-
+        backup_tables(SERVER, USERNAME, PASSWORD, DATABASE);
 }
 
 function execsql()
 {
-    global $user,$pass, $host, $name;
-    $db = mysql_connect($host, $user, $pass) or die("<b>error:</b> cannot connect to $host");
-    mysql_select_db($name, $db) or die("<b>error:</b> cannot select database");
+    $db = mysql_connect(SERVER, USERNAME, PASSWORD) or die("<div class='error'><b>error:</b> cannot connect to ".SERVER."</div>");
+    mysql_select_db(DATABASE, $db) or die("<b>error:</b> cannot select database");
 
     $sql = stripslashes($_REQUEST['sql']);
 
@@ -97,7 +93,7 @@ function execsql()
 function execquery(&$sql, &$db)
 {
     $result = mysql_query($sql, $db);
-    if($result === true)
+    if($result === true || is_int($result) )
     {
         echo '<div class="success">'.mysql_info().'</div>';
     }

@@ -120,7 +120,6 @@ function executeSql()
     $('div#exec').load('rpc.php', {fn:'execsql',sql:sql}, function() 
         { 
             $('div#loading').hide(); 
-            alert(TableToolsInit.sSwfPath); 
             TableToolsInit.sSwfPath = "media/swf/ZeroClipboard.swf";
             $('table.dt').dataTable(
                 {
